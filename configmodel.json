@@ -1,0 +1,17 @@
+{
+    "guest": {
+        "role": "guest",
+        "folder": "tru_chat1",
+        "radioID": 0
+    },
+    "user": {
+        "role": "user",
+        "folder": "tru_chat2",
+        "radioID": 1
+    },
+    "chkans": {
+        "role": "admin",
+        "folder": "wangchanberta",
+        "activate": 1
+    }
+}
