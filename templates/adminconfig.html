@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Config Model</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_adminconfig.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <main>
+        <div id="fileList">
+            <h3>Model Trained</h3>
+            <div class="form-container">
+                <form method="POST" action="/submit_adminconfig">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model Name</th>
+                                <th>Permission</th>
+                                <th>Check Answer Model</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if folders %}
+                                {% for folder in folders %}
+                                    <tr>                                        
+                                        <td>
+                                            <input type="checkbox"
+                                                id="checkbox_{{ folder }}"
+                                                name="folder_checkbox"
+                                                value="{{ folder }}"
+                                                {% if folder == admin_config.guest.folder or folder == admin_config.user.folder or folder == admin_config.chkans.folder%}checked{% endif %}>
+                                            <label for="checkbox_{{ folder }}">{{ folder }}</label>
+                                        </td>
+                                        <td>
+                                            <!-- Radio Buttons -->
+                                            {% for radio_value in folder_radio_map[folder] %}
+                                                <input type="radio"
+                                                    id="radio{{ folder }}_{{ radio_value }}"
+                                                    name="radio_button_{{ folder }}"
+                                                    value="{{ radio_value }}"
+                                                    {% if (folder == admin_config.guest.folder and radio_value == admin_config.guest.radioID) 
+                                                            or (folder == admin_config.user.folder and radio_value == admin_config.user.radioID) %}checked{% endif %}>
+                                                <label for="radio{{ folder }}_{{ radio_value }}">
+                                                    {{ "Guest" if radio_value == 0 else "User" }}
+                                                </label>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            <input type="radio"
+                                                id="answer_radio_{{ folder }}"
+                                                name="answer_radio_{{ folder }}"
+                                                value="{{ chkans_radio }}"
+                                                {% if folder == admin_config.chkans.folder %}checked{% endif %}>
+                                            <label for="answer_radio_{{ folder }}">Enable</label>
+                                        </td>                                
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4">No folders found.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    <button type="submit" id ="submitButton">Submit</button>
+                    <button type="reset" id="resetButton">Reset</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='script_adminconfig.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Welcome to TRU Training</title>
+    <link rel="stylesheet" href="/static/style_train.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TRU Gen Next Training</h1>
+
+        <!-- Dataset Upload -->
+        <form id="uploadForm" method="POST" action="/upload_dataset" enctype="multipart/form-data">
+            <div class="input-container">
+                <div>
+                    <label for="dataset">Upload Dataset:</label>                    
+                </div> 
+                <input type="file" id="dataset" name="dataset" required>
+                <button type="submit" id="datasetsubmit">Upload</button>  
+            </div>    
+            <div class="input-response-container" id="uploadStatus"></div>                 
+        </form>           
+
+        <form id="loadmodelForm" method="POST" action="/upload_model" enctype="multipart/form-data">
+            <div class="input-container">
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="fileMode" name="selectionMode" value="file" checked>
+                        File
+                    </label>
+                    <label>
+                        <input type="radio" id="folderMode" name="selectionMode" value="folder">
+                        Folder
+                    </label>
+                </div>
+                <input type="file" id="inputSelector" name="model" multiple webkitdirectory />
+                <button type="submit" id="modelsubmit">Load Model</button>
+            </div>   
+            <div class="input-response-container" id="uploadmodelStatus"></div>         
+        </form>
+        
+        
+        <form id="trainForm" method="POST" action="#">
+            <!-- Training Options -->
+            <div class="technique-device">
+                <div class="training-container">
+                    <label for="technique">Select Technique:</label>
+                    <select id="technique" class="form-control" name="technique" required>
+                        <option value="None"> - </option>
+                        <option value="Few-Shot">Few-Shot</option>
+                        <option value="Fine-Tuning Bert">Bert</option>
+                        <option value="Fine-Tuning Lora">Lora</option>                        
+                    </select>            
+                </div>
+
+                <div class="device-container">
+                    <label for="device">Device:</label>                    
+                    <select class="form-control" id="device" name="device" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="cpu">CPU</option>
+                        <option value="cuda">CUDA</option>
+                    </select>
+                </div> 
+            </div>
+            
+            <div id="trainingSettings" method="POST" action="/finetune_lora">
+                <div class="training-settings-container">
+                    <div class="left-side">
+                        <div class="fine-tune-group mt-2">
+                            <label for="lora_r">Lora R:</label>
+                            <input type="text" class="form-control" id="lora_r" name="lora_r" value="16">
+                        </div>
+                        <div class="fine-tune-group mt-2">
+                            <label for="lora_alpha">Lora Alpha:</label>
+                            <input type="text" class="form-control" id="lora_alpha" name="lora_alpha" value="32">
+                        </div>
+                        <div class="fine-tune-group mt-2">
+                            <label for="lora_dropout">Lora Dropout:</label>
+                            <input type="text" class="form-control" id="lora_dropout" name="lora_dropout" value="0.1" step="0.01">
+                        </div>
+                    </div>  
+                    <div class="right-side">
+                        <div class="fine-tune-group mt-2">
+                            <label for="learning_rate">Learning Rate:</label>
+                            <input type="text" class="form-control" id="learning_rate" name="learning_rate" value="1e-4">
+                        </div>
+                        <div class="fine-tune-group mt-2">
+                            <label for="batch_size">Batch Size:</label>
+                            <input type="text" class="form-control" id="batch_size" name="batch_size" value="4">
+                        </div>
+                        <div class="fine-tune-group mt-2">
+                            <label for="epochs">Epochs:</label>
+                            <input type="text" class="form-control" id="epochs" name="epochs" value="3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="trainingSettings_2" method="POST" action="/finetune_bert">
+                <div class="training-settings-container">
+                    <div class="left-side">
+                        <div class="fine-tune-group mt-2">
+                            <label for="bert_tr_bs">Train Batch Size:</label>
+                            <input type="text" class="form-control" id="bert_tr_bs" name="bert_tr_bs" value="8">
+                        </div>
+                        <div class="fine-tune-group mt-2">
+                            <label for="bert_ev_bs">Eval Batch Size:</label>
+                            <input type="text" class="form-control" id="bert_ev_bs" name="bert_ev_bs" value="8">
+                        </div>
+                        <div class="fine-tune-group mt-2">
+                            <label for="bert_lr">Learning Rate:</label>
+                            <input type="text" class="form-control" id="bert_lr" name="bert_lr" value="2e-5">
+                        </div>
+                    </div>
+                    <div class="right-side">  
+                        <div class="fine-tune-group mt-2">
+                            <label for="bert_epochs">Epochs:</label>
+                            <input type="text" class="form-control" id="bert_epochs" name="bert_epochs" value="10">
+                        </div>
+                        <div class="fine-tune-group mt-2">
+                            <label for="bert_decay">Decay:</label>
+                            <input type="text" class="form-control" id="bert_decay" name="bert_decay" value="0.01">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modelsave">
+                <div class="left-side">
+                    <div>
+                        <label for="output_path">Model Save Path:</label>
+                        <input type="text" id="output_path" name="output_path" required>
+                    </div>
+                </div>                
+                <div class="right-side">
+                    <div>
+                        <label for="model_name">Model Save Name:</label>
+                        <input type="text" id="model_name" name="model_name" required>
+                    </div>
+                </div>
+                <div class="flex-right">
+                    <button type="submit" id="submittrain">Start</button> 
+                </div>
+            </div>                     
+        </form>
+        <label id="loramessages"></label>
+        <!-- Progress -->
+        <div id="progressText", style="padding: 10px; margin:auto;"></div>
+        
+        <!-- Plot -->
+        <div id="plotContainer", style="padding: 10px;">
+            <img id="plotImage" src="" alt="LoRA Plot" style="max-width: 100%; height: auto;">
+        </div>
+
+        <h3>Power by Typhoon2</h3>
+    </div>
+    <script src="/static/script_train.js"></script>
+    
+</body>
+</html>

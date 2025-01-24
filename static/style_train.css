@@ -1,0 +1,261 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    /*box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.input-response-container {
+    background-color: #fff;
+}
+/* Header */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+/* Center and style the form */
+
+#loadmodelForm, #uploadForm {
+    width: 100%;
+    max-width: 800px;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Layout for Technique Containers */
+form,
+#bertTechnique, #loraTechnique {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Input and Form Styles */
+.input-container,
+.radio-groups {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+form div,
+input[type="text"], 
+input[type="file"], 
+select {
+    display: inline-block;
+    /*flex-direction: row;
+    align-items: center;
+    justify-content: center;*/
+    text-align: center;
+    vertical-align: middle;
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #eeeeee;    
+}
+
+/* Label Styling */
+label {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Button Styles */
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    width: 25%;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.training-settings-container {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+}
+
+
+/* Fine-Tuning Group */
+.fine-tune-group {
+    display: inline-block;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.fine-tune-group,
+.left-side,
+.right-side {
+    /*display: inline-block;
+    width: 48%;*/
+    flex:1;
+    margin: 10px;
+}
+
+.fine-tune-group label {
+    flex: 1;
+    margin-right: 10px;
+    font-size: 1rem;
+}
+
+.fine-tune-group input {
+    flex: 2;
+    max-width: 80px;
+    font-size: 0.9rem;
+    border-radius: 15px;
+    border: 1px solid #888888;
+}
+
+.flex-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modelsave {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: center;   
+}
+
+.modelsave .left-side,
+.modelsave .right-side {
+    flex: 1;
+    padding: 10px;
+    min-width: 200px;
+}
+
+.modelsave .flex-right {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.modelsave label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.modelsave input[type="text"] {
+    width: 100%; 
+    padding: 10px;
+    border: 1px solid #888888;
+    border-radius: 15px;
+    margin-top: 5px;
+}
+
+
+#submittrain {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    width: 25%;
+    transition: background-color 0.3s ease;
+}
+
+#submittrain:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+
+/* Progress and Plot Containers */
+#progressText,
+#plotContainer {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#progressText {
+    font-weight: bold;
+}
+
+#plotContainer {
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eaeaea;
+    color: #666;
+}
+
+/* Focused Input Styles */
+.container input[type="text"]:focus,
+.container select:focus,
+.container input[type="number"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+    .fine-tune-group {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    #bertTechnique, #loraTechnique {
+        margin: 10px;
+    }
+}
